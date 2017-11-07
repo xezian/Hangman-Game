@@ -13,10 +13,13 @@ var hiddenWord = "";
 var hiddenWordMap = [];
 // array into which to push "_" to represent each letter and then each actual letter of the hidden word.
 var displayWordMap =[];
+// array into which to push every guessed letter.
+var guessedLetters = [];
 // function that resets the score at start of game
 var startingScore = function() {
     user.guesses = 11;
     user.wrongGuesses = 0;
+    user.correctGuesses = 0;
     user.wins = 0;
     user.losses = 0;
 }
@@ -27,10 +30,11 @@ var newWord = function() {
     hiddenWord = secretWords[Math.floor(Math.random() * secretWords.length)];
     hiddenWordMap = [];
     displayWordMap = [];
+    guessedLetters = [];
     for (i = 0; i < hiddenWord.length; i++) {
         hiddenWordMap.push(hiddenWord.charAt(i));
 // push "-" for between two-word hiddenWords, and then "_" for every letter of hiddenWord
-        if (hiddenWord.charAt(i) === " - ") {
+        if (hiddenWord.charAt(i) === "-") {
             displayWordMap.push(hiddenWord.charAt(i));
         } else {
         displayWordMap.push("_");
@@ -77,34 +81,44 @@ var confirmNewWord = function() {
 var runGame = function() {
     document.onkeyup = function(event) {
     var keyPressed = event.key;
-    // decrease guesses by 1          
-    user.guesses--;
-// checks if key presse is in the array
-    if (inArray(hiddenWordMap, keyPressed)) {
+// checks if key pressed is in the array
+    if (inArray(guessedLetters, keyPressed)) {
+        console.log("already guessed");
+    } else if (inArray(hiddenWordMap, keyPressed)) {
         user.correctGuesses++;
-    for (var i = 0; i < hiddenWordMap.length; i++) {
+        // decrease guesses by 1          
+        user.guesses--;
+// store the value in guessed letters
+        guessedLetters.push(keyPressed); 
+// if so, loop through the array and do all the stuff at the exact location of the correct guess in both arrays
+        for (var i = 0; i < hiddenWordMap.length; i++) {
             if (keyPressed === hiddenWordMap[i] && keyPressed != "-" && keyPressed != "*") {
-                console.log(keyPressed + "--> :)") 
+            console.log(keyPressed + "--> :)") 
 // reveal hidden letters when correctly guessed
-                displayWordMap.splice(hiddenWordMap.indexOf(hiddenWordMap[i]), 1, hiddenWordMap[i]);
-                hiddenWordMap.splice(hiddenWordMap.indexOf(hiddenWordMap[i]), 1, "*");
-                } 
-            }
+            displayWordMap.splice(hiddenWordMap.indexOf(hiddenWordMap[i]), 1, hiddenWordMap[i]);
+            hiddenWordMap.splice(hiddenWordMap.indexOf(hiddenWordMap[i]), 1, "*");
+            } 
+        }
             console.log(displayWordMap);
+            console.log("guessed letters: " + guessedLetters);
             console.log(user);
         } else {
             console.log(keyPressed + "--> :(");
+            guessedLetters.push(keyPressed);
             user.wrongGuesses++;
+            // decrease guesses by 1          
+            user.guesses--;
             console.log(displayWordMap);
+            console.log("guessed letters: " + guessedLetters);
             console.log(user);
         }
-        // when whole word is correctly guessed, increase wins(score) by 1
-    if (displayWordMap.join("") === hiddenWord) {
+// when whole word is correctly guessed, increase wins(score) by 1
+        if (displayWordMap.join("") === hiddenWord) {
         alert("good job!")
         user.wins++;
         confirmNewWord();
         }
-    // when remaining guesses run out, increase losses by 1
+// when remaining guesses run out, increase losses by 1
         if (user.guesses < 1) {
         alert("sorry you lose");
         user.losses++;
