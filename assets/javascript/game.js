@@ -40,17 +40,19 @@ var newWord = function() {
         displayWordMap.push("_");
         }
     }
+    document.getElementById("secret-word").innerHTML = `${displayWordMap.join(" ")}`;
+    document.getElementById("user-stats").innerHTML = `${user.guesses}`;
     console.log(displayWordMap);
     console.log(user);
 };
 // start game with a new word and new score
 var startingState = function() {
-    document.write("Press \"s\" key to begin!");
+    document.getElementById("game").innerHTML = "Press \"s\" key to begin!";
     document.onkeyup = function(event) {
     var keyPressed = event.key;
 // press s key to start the game
     if (keyPressed === "s") {
-        document.write("Welcome to HANGMAN, <br> please press a lettter to guess the word <br>");
+    document.getElementById("game").innerHTML = "Welcome to HANGMAN, <br> please press a lettter to guess the word <br>";
         startingScore();
         newWord();
         runGame();
