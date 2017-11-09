@@ -30,7 +30,7 @@ var startingScore = function() {
 };
 // function to display the user stats including wins, losses, guessed letters, and remaining guesses
 var showStats = function () {
-    document.getElementById("user-stats").innerHTML = `guesses remaining: ${user.guesses} <br>wins: ${user.wins} <br>losses: ${user.losses}`;
+    document.getElementById("user-stats").innerHTML = `guesses remaining: ${user.guesses} <br>wins: ${user.wins} <br>losses: ${user.losses} <br>guessed letters: ${guessedLetters.join(", ")}`;
 };
 // select at random one of the words from the secretWords array and set hiddenWord to that string
 // then push each letter into the array!
@@ -51,18 +51,18 @@ var newWord = function() {
     }
 // display the information on the screen for new word
     document.getElementById("secret-word").innerHTML = `${displayWordMap.join(" ")}`;
-    document.getElementById("guessed-letters").innerHTML = `guessed letters: ${guessedLetters.join(", ")}`;
+    showStats();
 // open console for the word (helpful when testing)
     console.log(hiddenWord);
 };
 // start game with a new word and new score
 var startingState = function() {
-    document.getElementById("game").innerHTML = "Press any key to begin!";
+    document.getElementById("secret-word").innerHTML = "Press any key to begin!";
     document.onkeyup = function(event) {
     var keyPressed = event.key;
 // press s key to start the game
     if (keyPressed) {
-    document.getElementById("game").innerHTML = "Welcome! <br> please press a lettter to guess the word <br>";
+    document.getElementById("alert").innerHTML = "Hello! <br>press a lettter if you think the hidden word contains it. <br>";
         startingScore();
         newWord();
         runGame();
@@ -82,40 +82,45 @@ var inArray = function(x,y) {
 var isAlphabetCharacter = function(letter) {
     return (letter.length === 1) && /[a-z]/i.test(letter);
 };
+// function to see if the word is complete
 var checkWord = function () {
     if (displayWordMap.join("") === hiddenWord) {
-    alert("good job!");
+    document.getElementById("alert").innerHTML = "Congratulations! You got it!";
     user.wins++;
     confirmNewWord();
     }
 };
+// function to lose when guesses run out
 var youLose = function() {
     if (user.guesses < 1) {
-    alert("sorry you lose");
+    document.getElementById("alert").innerHTML = "Sorry you lose!";
     user.losses++;
     confirmNewWord();
     }
 };
+// funtion to ask if you want a new word
 var confirmNewWord = function() {
-    var ask = confirm("new word?");
-    if (ask) {
+    var alert = document.getElementById("alert");
+    var wordButton = document.createElement("button");
+    wordButton.innerHTML = "new word?";
+    wordButton.setAttribute("id", "alert2"); 
+    wordButton.setAttribute("class", "bg-success text-warning");
+    alert.appendChild(wordButton);
+    document.getElementById("alert2").onclick = function() {
         newWord();
-    } else {
-        var reset = confirm("start over?")
-        if (reset) {
-            startingState();
-        } 
+        alert.removeChild(wordButton);
     }
-};
-startingState()
+}
+// function that is the game itself
 var runGame = function() {
+    showStats();
     document.getElementById("solve").onclick = function() {
         var solveAttempt = prompt("what is your guess? (please use hyphens \"-\" between multiple word answers)");
         if (solveAttempt === hiddenWord) {
-            alert("correct!");
+            document.getElementById("alert").innerHTML = "Congratulations! You got it!";
             user.wins++;
             confirmNewWord();
-        } else {
+        } else if (solveAttempt) {
             alert("incorrect. keep trying.");
             user.guesses--;
         }
@@ -136,23 +141,22 @@ var runGame = function() {
 // if so, loop through the array and do all the stuff at the exact location of the correct guess in both arrays
         for (var i = 0; i < hiddenWordMap.length; i++) {
             if (keyPressed === hiddenWordMap[i] && keyPressed != "-" && keyPressed != "*") {
-            document.getElementById("alert").innerHTML = "--> :)"; 
-// reveal hidden letters when correctly guessed. splice(index location to begin, number to delete, thing to replace it with)
+            document.getElementById("alert").innerHTML = `${keyPressed} --> :)`; 
+// replace hidden letters when correctly guessed. splice(index location to begin, number to delete, thing to replace it with)
             displayWordMap.splice(hiddenWordMap.indexOf(hiddenWordMap[i]), 1, hiddenWordMap[i]);
             hiddenWordMap.splice(hiddenWordMap.indexOf(hiddenWordMap[i]), 1, "*");
             } 
         }
+// print it to the document for the user to see
             document.getElementById("secret-word").innerHTML = `${displayWordMap.join(" ")}`;
-            document.getElementById("guessed-letters").innerHTML = `guessed letters: ${guessedLetters.join(", ")}`;
             showStats();
         } else if (isAlphabetCharacter(keyPressed)) {
-            document.getElementById("alert").innerHTML = "--> :("; 
+            document.getElementById("alert").innerHTML = `${keyPressed} --> :(`; 
             guessedLetters.push(keyPressed);
             user.wrongGuesses++;
 // decrease guesses by 1          
             user.guesses--;
             document.getElementById("secret-word").innerHTML = `${displayWordMap.join(" ")}`;
-            document.getElementById("guessed-letters").innerHTML = `guessed letters: ${guessedLetters.join(", ")}`;
             showStats();
         } else {
             document.getElementById("alert").innerHTML = "Woah hey that's not a letter!"; 
@@ -163,3 +167,4 @@ var runGame = function() {
         youLose();
     }
 };
+startingState();
