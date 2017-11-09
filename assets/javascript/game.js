@@ -21,7 +21,14 @@ var startingScore = function() {
     user.correctGuesses = 0;
     user.wins = 0;
     user.losses = 0;
+    // click to solve button
+    var solveButton = document.createElement("button");
+    solveButton.innerHTML = "click to solve";
+    solveButton.setAttribute("id", "solve"); 
+    solveButton.setAttribute("class", "bg-success text-warning");
+    button.appendChild(solveButton);
 };
+// function to display the user stats including wins, losses, guessed letters, and remaining guesses
 var showStats = function () {
     document.getElementById("user-stats").innerHTML = `guesses remaining: ${user.guesses} <br>wins: ${user.wins} <br>losses: ${user.losses}`;
 };
@@ -42,13 +49,10 @@ var newWord = function() {
         displayWordMap.push("_");
         }
     }
+// display the information on the screen for new word
     document.getElementById("secret-word").innerHTML = `${displayWordMap.join(" ")}`;
     document.getElementById("guessed-letters").innerHTML = `guessed letters: ${guessedLetters.join(", ")}`;
-    var solveButton = document.createElement("button");
-    solveButton.innerHTML = "click to solve";
-    solveButton.attributes = ("id", "solve"); 
-    solveButton.attributes = ("class", "bg-success text-warning");
-    button.appendChild(solveButton);
+// open console for the word (helpful when testing)
     console.log(hiddenWord);
 };
 // start game with a new word and new score
