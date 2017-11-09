@@ -1,12 +1,12 @@
 // declare variables (remaining guesses, wrong guesses, hidden word, words[], wins, losses)
 var user = {
-    guesses: 13,
+    guesses: 0,
     wrongGuesses: 0,
     correctGuesses: 0,
     wins: 0,
     losses: 0
 };
-var secretWords = ["saguaro", "ocatillo", "teddy-bear-cholla", "creosote", "prickly-pear-cholla", "mesquite", "palo-verde", "mormon-tea", "acacia", "brittlebush", "barrel-cactus", "jojoba", "mistletoe", "agave", "hedgehog-cactus", "ironwood", "sycamore", "yucca", "organ-pipe-cactus"];
+var secretWords = ["saguaro", "ocatillo", "teddy-bear-cholla", "creosote", "prickly-pear-cholla", "mesquite", "palo-verde", "mormon-tea", "acacia", "brittlebush", "barrel-cactus", "jojoba", "mistletoe", "agave", "hedgehog-cactus", "ironwood", "sycamore", "yucca", "organ-pipe-cactus", "squirrel", "javalina", "whiptail-lizard", "tarantula", "black-widow", "horned-toad", "coyote", "desert-tortoise", "vermillion-flycatcher", "cactus-wren", "kestrel", "red-tailed-hawk"];
 // randomly selected secret word becomes hiddenWord
 var hiddenWord = "";
 // array into which to push each actual letter of the hidden word
@@ -17,7 +17,6 @@ var displayWordMap =[];
 var guessedLetters = [];
 // function that resets the score at start of game
 var startingScore = function() {
-    user.guesses = 11;
     user.wrongGuesses = 0;
     user.correctGuesses = 0;
     user.wins = 0;
@@ -29,7 +28,7 @@ var showStats = function () {
 // select at random one of the words from the secretWords array and set hiddenWord to that string
 // then push each letter into the array!
 var newWord = function() {
-    user.guesses = 11;
+    user.guesses = 13;
     hiddenWord = secretWords[Math.floor(Math.random() * secretWords.length)];
     hiddenWordMap = [];
     displayWordMap = [];
@@ -45,9 +44,12 @@ var newWord = function() {
     }
     document.getElementById("secret-word").innerHTML = `${displayWordMap.join(" ")}`;
     document.getElementById("guessed-letters").innerHTML = `guessed letters: ${guessedLetters.join(", ")}`;
-    showStats();
-    console.log(displayWordMap);
-    console.log(user);
+    var solveButton = document.createElement("button");
+    solveButton.innerHTML = "click to solve";
+    solveButton.attributes = ("id", "solve"); 
+    solveButton.attributes = ("class", "bg-success text-warning");
+    button.appendChild(solveButton);
+    console.log(hiddenWord);
 };
 // start game with a new word and new score
 var startingState = function() {
@@ -60,7 +62,6 @@ var startingState = function() {
         startingScore();
         newWord();
         runGame();
-    document.getElementById("solve").innerHTML = "click to solve!";
         }
     }
 };
@@ -73,6 +74,9 @@ var inArray = function(x,y) {
         }
     }
     return false;
+};
+var isAlphabetCharacter = function(letter) {
+    return (letter.length === 1) && /[a-z]/i.test(letter);
 };
 var checkWord = function () {
     if (displayWordMap.join("") === hiddenWord) {
@@ -99,6 +103,7 @@ var confirmNewWord = function() {
         } 
     }
 };
+startingState()
 var runGame = function() {
     document.getElementById("solve").onclick = function() {
         var solveAttempt = prompt("what is your guess? (please use hyphens \"-\" between multiple word answers)");
@@ -134,23 +139,19 @@ var runGame = function() {
             } 
         }
             document.getElementById("secret-word").innerHTML = `${displayWordMap.join(" ")}`;
-            console.log(displayWordMap);
             document.getElementById("guessed-letters").innerHTML = `guessed letters: ${guessedLetters.join(", ")}`;
-            console.log("guessed letters: " + guessedLetters);
             showStats();
-            console.log(user);
-        } else {
+        } else if (isAlphabetCharacter(keyPressed)) {
             document.getElementById("alert").innerHTML = "--> :("; 
             guessedLetters.push(keyPressed);
             user.wrongGuesses++;
 // decrease guesses by 1          
             user.guesses--;
             document.getElementById("secret-word").innerHTML = `${displayWordMap.join(" ")}`;
-            console.log(displayWordMap);
             document.getElementById("guessed-letters").innerHTML = `guessed letters: ${guessedLetters.join(", ")}`;
-            console.log("guessed letters: " + guessedLetters);
             showStats();
-            console.log(user);
+        } else {
+            document.getElementById("alert").innerHTML = "Woah hey that's not a letter!"; 
         }
 // when whole word is correctly guessed, increase wins(score) by 1
         checkWord();
@@ -158,4 +159,3 @@ var runGame = function() {
         youLose();
     }
 };
-startingState();

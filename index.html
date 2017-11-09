@@ -1,22 +1,54 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <meta charset="UTF-8">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+      <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <title>Hangman</title>
   </head>
   <body>
-    <div id="game">
+    <div class="container">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col-md-auto">
+            Sonoran Hangman!
+          </div>
+        </div>
+      </div>
+      <div class ="container">
+        <div class="row justify-content-md-center" id="game">
+        </div>
+      </div>
+      <div class ="container">
+        <div class="row justify-content-md-center" id="secret-word">
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-4">
+            <div class="row justify-content-md-center" id="user-stats">
+            </div>
+            <div class="row justify-content-md-center" id="guessed-letters">
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="row justify-content-md-center" id="alert">
+            </div>
+            <div class="row justify-content-md-center" id="button">
+            </div>
+          </div>
+          <div class="col-2">
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="secret-word">
-    </div>
-    <div id="user-stats">
-    </div>
-    <div id ="guessed-letters">
-    </div>
-    <div id="alert">
-    </div>
-    <button id="solve">
-    </button>
-    <script type="text/javascript" src="assets/javascript/game.js"></script>   
+    <script type="text/javascript" src="assets/javascript/game.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>  
   </body>
 </html>
