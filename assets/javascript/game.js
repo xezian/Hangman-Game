@@ -55,6 +55,12 @@ var newWord = function() {
 // open console for the word (helpful when testing)
     console.log(hiddenWord);
 };
+var drawHangMan = function () {
+    var hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                  ||  <br>         \\ o /                                   ||  <br>  _.  ,---|---.  ._                            ||  <br>    \\./     |    \\./                              ||  <br>            |                                     ||  <br>            /\\                                    ||  <br>           /  \\                                   ||  <br>          /    \\                                  ||  <br>       ,-^----^-.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
+    var putItHere = document.getElementById("hangman");
+    putItHere.setAttribute("style", `font-family: "Arial"`)
+    putItHere.innerHTML = `${hangMan}`;
+}
 // start game with a new word and new score
 var startingState = function() {
     document.getElementById("secret-word").innerHTML = "Press any key to begin!";
@@ -161,6 +167,7 @@ var runGame = function() {
         } else {
             document.getElementById("alert").innerHTML = "Woah hey that's not a letter!"; 
         }
+        drawHangMan();
 // when whole word is correctly guessed, increase wins(score) by 1
         checkWord();
 // when remaining guesses run out, increase losses by 1

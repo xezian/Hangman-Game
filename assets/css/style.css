@@ -1,5 +1,28 @@
-body {
-	background: #30E8BF;  /* fallback for old browsers */
-	background: -webkit-linear-gradient(to right, #FF8235, #30E8BF);  /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to right, #FF8235, #30E8BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+body, html {
+	height: 100%;
+	/* background-image: -webkit-linear-gradient(top, #FF8235, #16b859);*/
+}
+h1 {
+    position: relative;
+    font-size: 100px;
+    text-align: center;
+}
+h1 div {
+	text-transform: uppercase;
+	font-weight: bold;
+	background-color: white;
+	/* background-image: -webkit-linear-gradient(bottom, #FF8235,   #16b859);*/
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	position: absolute;
+	width: 100%;
+}
+h1:after {
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	color: transparent;
+}
+.gradient-shadow:after {
+	content: attr(title);
+	font-weight: bold;
+	text-transform: uppercase;
 }
