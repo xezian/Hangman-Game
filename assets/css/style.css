@@ -21,6 +21,9 @@ h1:after {
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 	color: transparent;
 }
+.main {
+	margin-bottom: 100px;
+}
 .gradient-shadow:after {
 	content: attr(title);
 	font-weight: bold;
@@ -31,6 +34,21 @@ h1:after {
 	border: 1px solid black;
 	padding: 15px;
 	margin: 15px;
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    padding: 10px 0px;
+    color: black;
+    font-size: 12px;
+    font-family: "Arial", "Helvetica Neue", "Helvetica", "sans-serif";
+    background-color: #FF8235;
+    text-align: center;
+    line-height: 50px;
+    border-top: 1px solid black;
+    z-index: 1;
 }
 #button {
 	margin: 15px;

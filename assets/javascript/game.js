@@ -1,6 +1,6 @@
 // declare variables (remaining guesses, wrong guesses, hidden word, words[], wins, losses)
 var user = {
-    guesses: 0,
+    guesses: 13,
     wrongGuesses: 0,
     correctGuesses: 0,
     wins: 0,
@@ -28,7 +28,7 @@ var startingScore = function() {
     solveButton.setAttribute("class", "bg-light text-dark");
     button.appendChild(solveButton);
 };
-var hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                  ||  <br>         \\ o /                                   ||  <br>  _.  ,---|---.  ._                            ||  <br>    \\./     |    \\./                              ||  <br>            |                                     ||  <br>            /\\                                    ||  <br>           /  \\                                   ||  <br>          /    \\                                  ||  <br>       ,-^----^-.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
+var hangMan = "";
 // function to display the user stats including wins, losses, guessed letters, and remaining guesses
 var showStats = function () {
     document.getElementById("user-stats").innerHTML = `guesses remaining: ${user.guesses} <br>wins: ${user.wins} <br>losses: ${user.losses} <br>guessed letters: ${guessedLetters.join(", ")}`;
@@ -94,17 +94,17 @@ var drawHangMan = function () {
         hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                 ||  <br>         \\ o /                                   ||  <br>  _.  ,---|---.  ._                            ||  <br>    \\./     |    \\./                              ||  <br>            |                                     ||  <br>            /\\                                    ||  <br>           /  \\                                   ||  <br>          /    \\                                  ||  <br>       ,-^----^-.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
     }
     if (user.guesses === 1) {
-        hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                 ||  <br>         \\ o /                                   ||  <br>  |.  ,---|---.  .|                              ||  <br>    \\./     |    \\./                              ||  <br>            |                                     ||  <br>            /\\                                    ||  <br>           /  \\                                   ||  <br>          /    \\                                  ||  <br>       ,-^----^-.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
+        hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                 ||  <br>         \\ o /                                   ||  <br>   |.  ,---|---.  .|                             ||  <br>    \\./     |    \\./                              ||  <br>            |                                     ||  <br>            /\\                                    ||  <br>           /  \\                                   ||  <br>          /    \\                                  ||  <br>       ,-^----^-.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
     }
     if (user.guesses === 0) {
-        hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * x x *                                 ||  <br>         \\ = /                                   ||  <br>  |.  ,---|---.  .|                              ||  <br>    \\./     |    \\./                              ||  <br>            |                                     ||  <br>            /\\                                    ||  <br>           /  \\                                   ||  <br>          /    \\                                  ||  <br>         ^    ^                                 ||  <br>    ________________________||  <br>   |_______________________||  <br>";
+        hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>       * x  x *                                 ||  <br>         \\ = /                                   ||  <br>   |.  ,---|---.  .|                             ||  <br>    \\./     |    \\./                              ||  <br>            |                                     ||  <br>            /\\                                    ||  <br>           /  \\                                   ||  <br>          /    \\                                  ||  <br>         ^    ^                                  ||  <br>    _______________________||  <br>   |_______________________||  <br>";
     }
     var putItHere = document.getElementById("hangman");
     putItHere.setAttribute("style", `font-family: "Arial"`)
     putItHere.innerHTML = `${hangMan}`;
 }
 var drawSaguaro = function() {
-    var saguaro = "<br><br><br><br>      _'-'-'_  <br>      -|     |_  <br>,,   _|     |-  ,, <br>| |__|     |_  <br>\\,_,_      |-  <br>      -|     |_  <br>     _|     |-  <br>      -|     |_  <br>     _|     |-  <br>      -|     |_  <br>     _|     |-  <br>___-|__ |___<br>";
+    var saguaro = "<br>    O <br>                +   <br>*         <br>      _'-'-'_  <br>      -| | | |_  <br>,,,   -| | | |-     <br>| ||  -| | | |_  <br>\\,\\,\\_| | | |-  <br>      -| | | |_  <br>     _| | | |-  <br>      -| | | |_  <br>     _| | | |-  <br>      -| | | |_  <br>     _| | | |-  <br>___-|_|| |___<br>";
     var putItHere = document.getElementById("saguaro");
     putItHere.setAttribute("style", `font-family: "Arial"`)
     putItHere.innerHTML = `${saguaro}`;
@@ -112,7 +112,10 @@ var drawSaguaro = function() {
 // start game with a new word and new score
 var startingState = function() {
     drawSaguaro();
+    drawHangMan();
     document.getElementById("secret-word").innerHTML = "Press any key to begin!";
+    document.getElementById("user-stats").setAttribute("class", "hidden");
+    document.getElementById("alert").setAttribute("class", "hidden");
     document.onkeyup = function(event) {
     var keyPressed = event.key;
 // press s key to start the game
@@ -143,25 +146,25 @@ var checkWord = function () {
     document.getElementById("alert").innerHTML = "Congratulations! You got it!";
     user.wins++;
     confirmNewWord();
-    }
-};
-// function to lose when guesses run out
-var youLose = function() {
-    if (user.guesses < 1) {
+    } else if (user.guesses < 1) {
     document.getElementById("alert").innerHTML = "Sorry you lose!";
     user.losses++;
     confirmNewWord();
     }
+};
+// function to lose when guesses run out
+var youLose = function() {
+ 
 };
 // funtion to ask if you want a new word
 var confirmNewWord = function() {
     var alert = document.getElementById("alert");
     var wordButton = document.createElement("button");
     wordButton.innerHTML = "new word?";
-    wordButton.setAttribute("id", "alert2"); 
+    wordButton.setAttribute("id", "button"); 
     wordButton.setAttribute("class", "bg-light text-dark");
     alert.appendChild(wordButton);
-    document.getElementById("alert2").onclick = function() {
+    document.getElementById("button").onclick = function() {
         newWord();
         alert.removeChild(wordButton);
     }
@@ -170,6 +173,8 @@ var confirmNewWord = function() {
 var runGame = function() {
     showStats();
     drawHangMan();
+    document.getElementById("user-stats").setAttribute("class", "row justify-content-center white-box");
+    document.getElementById("alert").setAttribute("class", "row justify-content-center white-box");
     document.getElementById("solve").onclick = function() {
         var solveAttempt = prompt("what is your guess? (please use hyphens \"-\" between multiple word answers)");
         if (solveAttempt === hiddenWord) {
@@ -220,8 +225,6 @@ var runGame = function() {
         drawHangMan();
 // when whole word is correctly guessed, increase wins(score) by 1
         checkWord();
-// when remaining guesses run out, increase losses by 1
-        youLose();
     }
 };
 startingState();
