@@ -24,20 +24,24 @@
           </div>
         </div>
       </div>
-<!-- container holding secret user stats on left, hangman ascii art in middle, alert box on the right -->
+<!-- container holding user stats on left, hangman ascii art in middle, alert box on the right -->
       <div class="container-fluid">
         <div class="row">
           <div class="col-2">
           </div>
-          <div class="col-2.5">
-            <div class="row justify-content-center" id="user-stats">
+          <div class="col-2">
+            <div class="row justify-content-center white-box" id="user-stats">
             </div>
           </div>
 <!-- made this section a "pre" so that I could display spaces with ascii art... -->
-          <pre class="col-3" id="hangman">
-          </pre>
-          <div class="col-2.5">
-            <div class="row justify-content-center" id="alert">
+          <div class="col-4 white-box">
+            <div class="row">
+              <pre class="col-8" id="hangman"></pre>
+              <pre class="col-4" id="saguaro"></pre>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="row justify-content-center white-box" id="alert">
             </div>
           </div>
           <div class="col-2">
@@ -45,14 +49,17 @@
         </div>
       </div>
 <!-- container holding secret word -->
-      <div class ="container-fluid">
-        <div class="row justify-content-center">
-          <h4 id="secret-word"> </h4>
-        </div>
-      </div>
-<!-- container holding solve button -->
-      <div class="container">
-        <div class="row justify-content-center" id="button">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-4"></div>
+            <div class="col-4 white-box">  
+              <div class="row justify-content-center">
+                <h4 id="secret-word"> </h4>
+              </div>
+              <div class="row justify-content-center" id="button">
+              </div>
+            </div> 
+          <div class="col-4"></div>   
         </div>
       </div>
 <!-- container holding footer -->
