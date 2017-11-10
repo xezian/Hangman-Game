@@ -25,9 +25,10 @@ var startingScore = function() {
     var solveButton = document.createElement("button");
     solveButton.innerHTML = "click to solve";
     solveButton.setAttribute("id", "solve"); 
-    solveButton.setAttribute("class", "bg-success text-warning");
+    solveButton.setAttribute("class", "bg-light text-dark");
     button.appendChild(solveButton);
 };
+var hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                  ||  <br>         \\ o /                                   ||  <br>  _.  ,---|---.  ._                            ||  <br>    \\./     |    \\./                              ||  <br>            |                                     ||  <br>            /\\                                    ||  <br>           /  \\                                   ||  <br>          /    \\                                  ||  <br>       ,-^----^-.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
 // function to display the user stats including wins, losses, guessed letters, and remaining guesses
 var showStats = function () {
     document.getElementById("user-stats").innerHTML = `guesses remaining: ${user.guesses} <br>wins: ${user.wins} <br>losses: ${user.losses} <br>guessed letters: ${guessedLetters.join(", ")}`;
@@ -56,7 +57,27 @@ var newWord = function() {
     console.log(hiddenWord);
 };
 var drawHangMan = function () {
-    var hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                  ||  <br>         \\ o /                                   ||  <br>  _.  ,---|---.  ._                            ||  <br>    \\./     |    \\./                              ||  <br>            |                                     ||  <br>            /\\                                    ||  <br>           /  \\                                   ||  <br>          /    \\                                  ||  <br>       ,-^----^-.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
+    if (user.guesses === 13) {
+        hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>       ,--------.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
+    } 
+    if (user.guesses === 12) {
+        hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>       ,--------.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
+    }
+    if (user.guesses === 11) {
+        hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>       ,--------.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
+    }    
+    if (user.guesses === 10) {
+        hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                  ||  <br>         \\ o /                                   ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>       ,--------.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
+    }
+    if (user.guesses === 9) {
+        hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                  ||  <br>         \\ o /                                   ||  <br>       ,---|---.                                   ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>       ,--------.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
+    }
+    if (user.guesses === 8) {
+        hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                  ||  <br>         \\ o /                                   ||  <br>  _.  ,---|---.  ._                            ||  <br>    \\./     |    \\./                              ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>                                                  ||  <br>       ,--------.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
+    }
+    if (user.guesses === 0) {
+        hangMan = "<br><br>             ____________________    <br>            //                                    ||  <br>          ,,,,,                                   ||  <br>        * .  . *                                  ||  <br>         \\ o /                                   ||  <br>  _.  ,---|---.  ._                            ||  <br>    \\./     |    \\./                              ||  <br>            |                                     ||  <br>            /\\                                    ||  <br>           /  \\                                   ||  <br>          /    \\                                  ||  <br>       ,-^----^-.                               ||  <br>    _/______\\_______________||  <br>   |_______________________||  <br>";
+    }
     var putItHere = document.getElementById("hangman");
     putItHere.setAttribute("style", `font-family: "Arial"`)
     putItHere.innerHTML = `${hangMan}`;
@@ -110,7 +131,7 @@ var confirmNewWord = function() {
     var wordButton = document.createElement("button");
     wordButton.innerHTML = "new word?";
     wordButton.setAttribute("id", "alert2"); 
-    wordButton.setAttribute("class", "bg-success text-warning");
+    wordButton.setAttribute("class", "bg-light text-dark");
     alert.appendChild(wordButton);
     document.getElementById("alert2").onclick = function() {
         newWord();
@@ -120,6 +141,7 @@ var confirmNewWord = function() {
 // function that is the game itself
 var runGame = function() {
     showStats();
+    drawHangMan();
     document.getElementById("solve").onclick = function() {
         var solveAttempt = prompt("what is your guess? (please use hyphens \"-\" between multiple word answers)");
         if (solveAttempt === hiddenWord) {
