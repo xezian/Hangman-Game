@@ -1,6 +1,6 @@
 body, html {
 	height: 100%;
-	/* background-image: -webkit-linear-gradient(top, #FF8235, #16b859);*/
+	background-image: -webkit-linear-gradient(top, #FF8235, #16b859);*/
 }
 h1 {
     position: relative;
@@ -11,7 +11,7 @@ h1 div {
 	text-transform: uppercase;
 	font-weight: bold;
 	background-color: white;
-	/* background-image: -webkit-linear-gradient(bottom, #FF8235,   #16b859);*/
+	background-image: -webkit-linear-gradient(bottom, #FF8235,   #16b859);*/
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	position: absolute;
