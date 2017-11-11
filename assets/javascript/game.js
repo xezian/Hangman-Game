@@ -41,6 +41,7 @@ var newWord = function() {
     hiddenWordMap = [];
     displayWordMap = [];
     guessedLetters = [];
+    drawHangMan();
     for (i = 0; i < hiddenWord.length; i++) {
         hiddenWordMap.push(hiddenWord.charAt(i));
 // push "-" for between two-word hiddenWords, and then "_" for every letter of hiddenWord
@@ -151,10 +152,6 @@ var checkWord = function () {
     user.losses++;
     confirmNewWord();
     }
-};
-// function to lose when guesses run out
-var youLose = function() {
- 
 };
 // funtion to ask if you want a new word
 var confirmNewWord = function() {

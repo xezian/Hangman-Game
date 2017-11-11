@@ -10,47 +10,45 @@
   </head>
   <body>
 <!-- -->
-<!-- main container -->
-  <div class="container-fluid main">
 <!-- container holding title -->
-    <div class="container-fluid">
+    <div class="container-fluid head">
       <div class="row justify-content-center">
-        <div class="col-1">
-        </div>
-        <div class="col-10">
-          <h1 class="gradient-shadow" title="Sonoran Desert Hangman"><div>Sonoran Desert Hangman</div></h1>
-        </div>
-        <div class="col-1">
-        </div>
+        <h1 class="gradient-shadow" title="Sonoran Desert Hangman"><div>Sonoran Desert Hangman</div>
+        </h1>
       </div>
     </div>
+<!-- main container -->
+    <div class="container-fluid main">
 <!-- container holding user stats on left, hangman ascii art in middle, alert box on the right -->
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-2">
-        </div>
-        <div class="col-2">
-          <div class="row justify-content-center white-box" id="user-stats">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-2">
           </div>
-        </div>
+          <div class="col-2">
+            <div class="row h-25"></div>
+            <div class="row justify-content-center white-box" id="user-stats">
+            </div>
+            <div class="row h-25"></div>
+          </div>
 <!-- made this section a "pre" so that I could display spaces with ascii art... -->
-        <div class="col-4 white-box">
-          <div class="row">
-            <pre class="col-8" id="hangman"></pre>
-            <pre class="col-4" id="saguaro"></pre>
+          <div class="col-4 sunset-box">
+            <div class="row">
+              <pre class="col-8" id="hangman"></pre>
+              <pre class="col-4" id="saguaro"></pre>
+            </div>
           </div>
-        </div>
-        <div class="col-2">
-          <div class="row justify-content-center white-box" id="alert">
+          <div class="col-2">
+            <div class="row h-25"></div>
+            <div class="row justify-content-center white-box" id="alert">
+            </div>
+            <div class="row h-25"></div>
           </div>
-        <div class="col-2">
         </div>
       </div>
-    </div>
 <!-- container holding secret word -->
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-4"></div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-4"></div>
           <div class="col-4 white-box">  
             <div class="row justify-content-center">
               <h4 id="secret-word"> </h4>
@@ -59,7 +57,6 @@
             </div>
           </div> 
           <div class="col-4"></div>   
-          </div>
         </div>
       </div>
     </div>
