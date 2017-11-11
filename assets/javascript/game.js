@@ -42,6 +42,8 @@ var newWord = function() {
     displayWordMap = [];
     guessedLetters = [];
     drawHangMan();
+// this is where the background image function checks for an increase in wins
+    backgroundImg();
     for (i = 0; i < hiddenWord.length; i++) {
         hiddenWordMap.push(hiddenWord.charAt(i));
 // push "-" for between two-word hiddenWords, and then "_" for every letter of hiddenWord
@@ -109,6 +111,18 @@ var drawSaguaro = function() {
     var putItHere = document.getElementById("saguaro");
     putItHere.setAttribute("style", `font-family: "Arial"`)
     putItHere.innerHTML = `${saguaro}`;
+}
+// variable to store user.wins for comparison
+var win = user.wins;
+// change background image to random image from the array when win happens
+var backgroundImg = function() {
+    var bodyTime = document.getElementById("body");
+    var backGrounds = ["picture", "picture1", "picture2", "picture3", "picture4", "picture5", "new-gradient"];
+    newImg = backGrounds[Math.floor(Math.random() * backGrounds.length)];
+    if (win < user.wins) {
+        bodyTime.setAttribute(`class`, `${newImg}`);
+        win = user.wins;
+    }
 }
 // start game with a new word and new score
 var startingState = function() {
@@ -219,9 +233,11 @@ var runGame = function() {
         } else {
             document.getElementById("alert").innerHTML = "Woah hey that's not a letter!"; 
         }
+// this is where hangman is drawn to correspond with the remaining guess number
         drawHangMan();
 // when whole word is correctly guessed, increase wins(score) by 1
         checkWord();
     }
 };
+// call the starting state which is the only thing we are actually calling outside of any functions
 startingState();

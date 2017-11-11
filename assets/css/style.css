@@ -1,7 +1,6 @@
 body {
 	height: 100%;
-	background-image: url("assets/images/IMG_2849.JPG");
-	/*background: -webkit-linear-gradient(top, #FF8235, #16b859);*/
+	background: -webkit-linear-gradient(top, #FF8235, #16b859);
 }
 h1 {
     position: relative;
@@ -24,6 +23,27 @@ h1:after {
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 	color: transparent;
 }
+.picture {
+	background: url("../images/IMG_2849.JPG");
+}
+.picture1 {
+	background: url("../images/IMG_2728.JPG");
+}
+.picture2 {
+	background: url("../images/IMG_2725.JPG");
+}
+.picture3 {
+	background: url("../images/IMG_2727.JPG");
+}
+.picture4 {
+	background: url("../images/IMG_2733.JPG");
+}
+.picture5 {
+	background: url("../images/IMG_2733.JPG");
+}
+.new-gradient {
+	background: -webkit-linear-gradient(top, rgb(255, 53, 228), #3cd636);
+}
 .head {
 	position: fixed;
 	z-index: 1;
@@ -37,13 +57,6 @@ h1:after {
 	content: attr(title);
 	font-weight: bold;
 	text-transform: uppercase;
-}
-.sunset-box {
-	background: -webkit-linear-gradient(top, #FF8235,  #b316b8, #e920f0, #619b05);
-	border: 1px solid black;
-	padding: 15px;
-	margin: 15px 0px 15px 0px;
-	width: 100%;
 }
 .white-box {
 	background-color: white;
