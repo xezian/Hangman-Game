@@ -15,6 +15,8 @@ var hiddenWordMap = [];
 var displayWordMap =[];
 // array into which to push every guessed letter.
 var guessedLetters = [];
+// variable to store when you lose
+var lost;
 // function that resets the score at start of game
 var startingScore = function() {
     user.wrongGuesses = 0;
@@ -36,6 +38,7 @@ var showStats = function () {
 // select at random one of the words from the secretWords array and set hiddenWord to that string
 // then push each letter into the array!
 var newWord = function() {
+    lost = false;
     user.guesses = 13;
     hiddenWord = secretWords[Math.floor(Math.random() * secretWords.length)];
     hiddenWordMap = [];
@@ -164,6 +167,7 @@ var checkWord = function () {
     } else if (user.guesses < 1) {
     document.getElementById("alert").innerHTML = "Sorry you lose!";
     user.losses++;
+    lost = true;
     confirmNewWord();
     }
 };
@@ -187,18 +191,25 @@ var runGame = function() {
     document.getElementById("user-stats").setAttribute("class", "row justify-content-center white-box");
     document.getElementById("alert").setAttribute("class", "row justify-content-center white-box");
     document.getElementById("solve").onclick = function() {
-        var solveAttempt = prompt("what is your guess? (please use hyphens \"-\" between multiple word answers)");
-        if (solveAttempt === hiddenWord) {
-            document.getElementById("alert").innerHTML = "Congratulations! You got it!";
-            user.wins++;
-            confirmNewWord();
-        } else if (solveAttempt) {
-            alert("incorrect. keep trying.");
-            user.guesses--;
+        if (lost) {
+            alert("too late! you have run all the way out of guesses!")
+        } else {
+            var solveAttempt = prompt("what is your guess? (please use hyphens \"-\" between multiple word answers)");
+            if (solveAttempt === hiddenWord) {
+                document.getElementById("alert").innerHTML = "Congratulations! You got it!";
+                user.wins++;
+                confirmNewWord();
+            } else if (solveAttempt) {
+                alert("incorrect. keep trying.");
+                user.guesses--;
+            }
         }
     }
     document.onkeyup = function(event) {
     var keyPressed = event.key;
+    if (lost) {
+        alert(`Pressing ${keyPressed} won't help you now! (you are out of guesses)`);
+    } else
 // checks if key pressed has already been guessed
     if (inArray(guessedLetters, keyPressed)) {
         document.getElementById("alert").innerHTML = `you have already guessed the letter ${keyPressed}!`;
@@ -206,8 +217,6 @@ var runGame = function() {
 // checks if key pressed is in the hidden word array
     } else if (inArray(hiddenWordMap, keyPressed)) {
         user.correctGuesses++;
-// decrease guesses by 1          
-        user.guesses--;
 // store the value in guessed letters
         guessedLetters.push(keyPressed); 
 // if so, loop through the array and do all the stuff at the exact location of the correct guess in both arrays
